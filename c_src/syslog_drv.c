@@ -25,6 +25,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <syslog.h>
 #include <stdarg.h>
 #include <string.h>
+#include <unistd.h>
 
 #include <ei.h>
 #include <erl_driver.h>
@@ -93,6 +94,7 @@ static void syslogdrv_output(ErlDrvData handle, char *buf, ErlDrvSizeT len)
         buf += 4;
         /* re-call openlog in case another instance of the port driver
          * was called in the mean time */
+        sleep(1);
         openlog(d->ident, d->logopt, d->facility);
         syslog(priority, "%s", buf);
     }
